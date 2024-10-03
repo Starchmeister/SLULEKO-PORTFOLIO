@@ -1,0 +1,69 @@
+---
+title: "Discovering Git LFS: A Story of Handling Large Files in Git
+"
+publishedAt: "2024-10-23"
+summary: "My first post on my new blog."
+---
+
+In the early days of my development career, I thought I had a solid understanding of Git. I could push, pull, and merge like a pro, and I knew how to handle most of the common pitfalls. But one day, I encountered a problem that left me scratching my head—my repository was growing exponentially in size, slowing down operations and making it difficult to collaborate with my team.
+
+This happened while working on a project that involved a lot of multimedia assets: high-resolution images, videos, and even design files. It wasn’t long before I realized that the usual Git workflow wasn’t cut out for handling such large files. After a bit of research, I stumbled across Git Large File Storage (LFS)—a tool I had never heard of before.
+
+Git LFS is an open-source Git extension designed to handle large files by replacing them with lightweight pointers in the Git repository, while the actual file contents are stored on a separate server. This makes the repo more efficient and manageable without losing the files themselves. I was intrigued, so I dove into the documentation and decided to give it a try.
+
+Here’s how I incorporated Git LFS into the project:
+
+Step 1: Install Git LFS
+I started by installing Git LFS on my machine. You can do this using a package manager like brew on macOS or apt-get on Ubuntu:
+
+```jsx
+# For macOS
+brew install git-lfs
+
+# For Ubuntu
+sudo apt-get install git-lfs
+
+```
+
+Step 2: Track Large Files
+Once installed, I needed to specify which files Git LFS should track. For example, to track all .psd and .mp4 files, I used the following command:
+
+```jsx
+git lfs track "*.psd"
+git lfs track "(You can also past the files relative path by write clicking on your file on VS Code)"
+
+```
+
+This command tells Git LFS to start tracking these file types in the .gitattributes file, which keeps track of all patterns being handled by LFS.
+
+Step 3: Add and Commit the Changes
+I then staged and committed the changes:
+
+```jsx
+git add .gitattributes
+git add *.psd
+git add *.mp4
+git commit -m "Add large files to LFS"
+
+```
+
+With these steps, Git LFS took over handling the large files, making my repository much more lightweight and performant.
+
+Step 4: Pushing to the Remote Repository
+The final step was to push everything to the remote repository. Since Git LFS was now in charge of the larger files, I noticed a significant improvement in push and pull times:
+
+```jsx
+git push origin main
+
+```
+
+The Impact
+Switching to Git LFS had an immediate impact. The repository size was reduced dramatically, and operations like cloning, pushing, and pulling were noticeably faster. My team was able to collaborate more effectively, and we didn’t have to worry about the repository slowing down or becoming bloated as we added more assets.
+
+Lessons Learned
+Reflecting back, I realized how easy it is to overlook specialized tools like Git LFS, especially when you're used to the typical workflow for code-centric repositories. But for projects involving large binary files or design assets, Git LFS can be a game-changer.
+
+If you’re interested in learning more or trying it out for yourself, I highly recommend checking out the Git LFS documentation. It’s an invaluable resource for getting started and understanding how Git LFS can streamline your workflow.
+
+Final Thoughts
+Every developer has those “aha” moments where they discover a tool or technique that transforms how they work. For me, Git LFS was one of those discoveries. It’s now a staple in my toolkit whenever I handle projects with large files. If you haven’t used it before, give it a try—you might be surprised by how much it simplifies your workflow!
